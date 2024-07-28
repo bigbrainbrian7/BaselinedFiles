@@ -1,28 +1,28 @@
 #!/bin/bash
-# Set ownership for server root
-sudo chown -R root:root /etc/apache2
+useradd -s /sbin/nologin ftpsecure
+
+# Set ownership for files
+sudo chown -R root:root /etc/vsftpd.conf /etc/ftpusers
 
 #Set ownership for document roots (/var/www)
-sudo chown -R www-data:www-data /var/www
-sudo chown root:www-data /var/www
+sudo chown -R ftpsecure:ftpsecure /var/www
 
 #Set ownership for apache2 log
-sudo chown -R root:adm /var/log/apache2
+sudo chown root:root /var/log/xferlog /var/log/vsftpd.log*
+sudo chown root:adm /var/log/vsftpd.log
 
 # Set permissions for files
-sudo find /etc/apache2 -type f -exec chmod 600 {} \;
-sudo find /var/www -type f -exec chmod 644 {} \;
-sudo find /var/run/apache2 -type f -exec chmod 644 {} \;
-sudo find /var/log/apache2 -type f -exec chmod 640 {} \;
+sudo find /var/run/vsftpd -type f -exec chmod 644 {} \;
+sudo chmod 644 /etc/vsftpd.conf /etc/ftpusers
+sudo chmod 600 /var/log/vsftpd.log* /var/log/xferlog
+sudo chmod 640 /var/log/vsftpd.log
 
 # Set permissions for directories
-sudo find /etc/apache2 -type d -exec chmod 755 {} \;
 sudo find /var/www -type d -exec chmod 755 {} \;
-sudo find /var/run/apache2 -type d -exec chmod 755 {} \;
-sudo chmod 750 /var/log/apache2
+sudo find /var/run/vsftpd -type d -exec chmod 755 {} \;
+
 
 # Set permission for parent directories
-sudo chmod 755 /etc/apache2
 sudo chmod 755 /etc
 sudo chmod 775 /var/log
 sudo chmod 755 /var/www
@@ -31,8 +31,7 @@ sudo chmod 755 /var
 sudo chmod 755 /
 
 # Set permission for binary, though in theory should have another script setting all binaries to 755
-sudo chmod 755 /usr/sbin/apache2
-sudo chmod 755 /usr/sbin/apache2ctl
+sudo chmod 755 /usr/sbin/vsftpd
 
 sudo sh -c 'echo "/var/log/apache2/*.log {
     daily
