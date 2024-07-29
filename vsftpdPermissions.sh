@@ -33,24 +33,13 @@ sudo chmod 755 /
 # Set permission for binary, though in theory should have another script setting all binaries to 755
 sudo chmod 755 /usr/sbin/vsftpd
 
-sudo sh -c 'echo "/var/log/apache2/*.log {
-    daily
-    missingok
-    rotate 14
-    compress
-    delaycompress
-    notifempty
+sudo sh -c 'cat <<EOF > /etc/logrotate.d/vsftpd
+/var/log/vsftpd.log {
     create 640 root adm
-    sharedscripts
-    prerotate
-	if [ -d /etc/logrotate.d/httpd-prerotate ]; then
-	    run-parts /etc/logrotate.d/httpd-prerotate
-	fi
-    endscript
-    postrotate
-	if pgrep -f ^/usr/sbin/apache2 > /dev/null; then
-	    invoke-rc.d apache2 reload 2>&1 | logger -t apache2.logrotate
-	fi
-    endscript
-}" > /etc/logrotate.d/apache2'
 
+    missingok
+    notifempty
+    rotate 4
+    weekly
+}
+EOF'
