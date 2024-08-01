@@ -10,7 +10,7 @@ sudo chown root:www-data /var/www
 sudo chown -R root:adm /var/log/apache2
 
 # Set permissions for files
-sudo find /etc/apache2 -type f -exec chmod 600 {} \;
+sudo find /etc/apache2 -type f -exec chmod 644 {} \;
 sudo find /var/www -type f -exec chmod 644 {} \;
 sudo find /var/run/apache2 -type f -exec chmod 644 {} \;
 sudo find /var/log/apache2 -type f -exec chmod 640 {} \;
