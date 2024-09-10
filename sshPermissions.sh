@@ -1,4 +1,5 @@
 #!/bin/bash
+#man 5 sshd_config
 
 # Set ownership for files
 sudo chown -R root:root /etc/ssh /etc/ftpusers
@@ -25,4 +26,5 @@ sudo chmod 755 /
 # Set permission for binary, though in theory should have another script setting all binaries to 755
 sudo chmod 755 /usr/sbin/sshd
 
+sudo sshd -T
 find /home -type f -name 'authorized_keys' -exec echo {} \;
