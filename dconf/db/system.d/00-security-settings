@@ -1,0 +1,20 @@
+[org/gnome/desktop/session]
+# V-71893 - The operating system must initiate a screensaver after a
+#                  15-minute period of inactivity for graphical user
+#                  interfaces.
+idle-delay=900
+
+[org/gnome/desktop/screensaver]
+# V-71891 - The operating system must enable a user session lock until
+#                  that user re-establishes access using established
+#                  identification and authentication procedures.
+lock-enabled=true
+
+# V-71901 - The operating system must initiate a session lock for
+#                  graphical user interfaces when the screensaver is activated.
+lock-delay=900
+
+# V-71893 - The operating system must initiate a session lock for the
+#                  screensaver after a period of inactivity for graphical user
+#                  interfaces.
+idle-activation-enabled=true
